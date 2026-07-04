@@ -1,0 +1,78 @@
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+
+// NavLink (instead of Link) tells us which page is active,
+// so we can highlight the current page in the menu.
+const navItems = [
+  { to: "/", label: "Home" },
+  { to: "/recipes", label: "Recipes" },
+  { to: "/ai-kitchen", label: "AI Kitchen" }
+];
+
+export default function Nav() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Shared styling for links; the isActive flag comes from NavLink
+  const linkClasses = ({ isActive }) =>
+    `px-3 py-2 rounded-lg font-semibold transition-colors ${
+      isActive
+        ? "bg-leaf text-pine"
+        : "text-ink/70 hover:text-pine hover:bg-leaf/60"
+    }`;
+
+  return (
+    <header className="bg-paper/90 backdrop-blur sticky top-0 z-50 border-b border-pine/10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+        {/* Wordmark */}
+        <NavLink to="/" className="flex items-baseline gap-1">
+          <span className="font-display text-2xl text-pine">Reggie&rsquo;s</span>
+          <span className="font-mono text-xs text-saffron tracking-widest uppercase">
+            Recipes
+          </span>
+        </NavLink>
+
+        {/* Desktop links */}
+        <nav className="hidden md:flex items-center gap-1">
+          {navItems.map((item) => (
+            <NavLink key={item.to} to={item.to} className={linkClasses} end={item.to === "/"}>
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+
+        {/* Mobile menu button */}
+        <button
+          onClick={() => setIsOpen((prev) => !prev)}
+          className="md:hidden p-2 rounded-lg text-pine hover:bg-leaf focus:outline-none focus:ring-2 focus:ring-basil"
+          aria-label="Toggle menu"
+          aria-expanded={isOpen}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+            {isOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+      </div>
+
+      {/* Mobile dropdown */}
+      {isOpen && (
+        <nav className="md:hidden px-4 pb-4 flex flex-col gap-1">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={linkClasses}
+              end={item.to === "/"}
+              onClick={() => setIsOpen(false)}
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+      )}
+    </header>
+  );
+}

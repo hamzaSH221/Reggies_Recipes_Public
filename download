@@ -1,0 +1,294 @@
+// ---------------------------------------------------------------------------
+// recipes.js — the single source of truth for every recipe on the site.
+// Each recipe has:
+//   id          unique number
+//   name        display name
+//   category    "Mains" or "Desserts" (used by the filter chips)
+//   diet        dietary label shown as a badge
+//   time        rough total time, shown on the card
+//   serves      how many people it feeds
+//   description one friendly sentence for the card
+//   img         imported image
+//   steps       ordered cooking instructions
+// ---------------------------------------------------------------------------
+
+import tacos from "../images/tacos.jpg";
+import lamb1 from "../images/lamb2.0.webp";
+import pesto from "../images/pesto.png";
+import broc from "../images/broc.png";
+import lamb2 from "../images/lamb3.png";
+import spinach from "../images/spinich.jpg";
+import meatballs from "../images/meatballs3.png";
+import thai from "../images/thai.png";
+import bowl from "../images/bowl.jpg";
+import b1 from "../images/brownie1.png";
+import b2 from "../images/brownie2.png";
+import c1 from "../images/c1.png";
+import c2 from "../images/c2.png";
+import p1 from "../images/p1.png";
+import p2 from "../images/p2.png";
+
+const recipes = [
+  {
+    id: 1,
+    name: "Loaded Vegan Tacos",
+    category: "Mains",
+    diet: "Vegan",
+    time: "25 min",
+    serves: 2,
+    description: "Warm corn tortillas piled with seasoned beans, crunchy veg and a vegan cheese drizzle.",
+    img: tacos,
+    steps: [
+      "Warm corn tortillas on a skillet until pliable.",
+      "Fill tortillas with shredded lettuce and seasoned vegan protein (beans or jackfruit).",
+      "Top with diced peppers, corn kernels, and sliced jalapeños.",
+      "Drizzle vegan cheese sauce over the tacos.",
+      "Garnish with lime wedges and fresh cilantro before serving."
+    ]
+  },
+  {
+    id: 2,
+    name: "Slow Cooked Lamb",
+    category: "Mains",
+    diet: "Halal",
+    time: "6–8 hrs",
+    serves: 4,
+    description: "Fall-apart lamb simmered low and slow with cumin, coriander and root vegetables.",
+    img: lamb1,
+    steps: [
+      "Season lamb with salt, pepper, and garlic powder.",
+      "Brown lamb pieces in a hot skillet with oil.",
+      "Transfer to a slow cooker with chopped onions and carrots.",
+      "Add broth, tomato paste, and spices (cumin, coriander).",
+      "Cook on low for 6–8 hours until tender.",
+      "Garnish with fresh parsley and serve over rice."
+    ]
+  },
+  {
+    id: 3,
+    name: "Tuna & Pesto Pasta",
+    category: "Mains",
+    diet: "Pescatarian",
+    time: "15 min",
+    serves: 2,
+    description: "A five-ingredient weeknight rescue: pasta, pesto, tuna and a squeeze of lemon.",
+    img: pesto,
+    steps: [
+      "Cook pasta according to package instructions; drain.",
+      "In a bowl, mix cooked pasta with 3 tbsp pesto sauce.",
+      "Stir in a drained can of tuna and a squeeze of lemon juice.",
+      "Season with salt and pepper to taste.",
+      "Serve topped with cherry tomatoes and fresh basil."
+    ]
+  },
+  {
+    id: 4,
+    name: "Coconut Crusted Tilapia",
+    category: "Mains",
+    diet: "Pescatarian",
+    time: "25 min",
+    serves: 2,
+    description: "Flaky white fish baked in a golden coconut-breadcrumb crust with lime.",
+    img: broc,
+    steps: [
+      "Preheat oven to 200°C (400°F).",
+      "Combine coconut and breadcrumbs in a bowl.",
+      "Dip tilapia in beaten egg, then coat.",
+      "Bake for 12–15 minutes until golden.",
+      "Serve with lime wedges and cilantro."
+    ]
+  },
+  {
+    id: 5,
+    name: "Lamb & Rice Special",
+    category: "Mains",
+    diet: "Halal",
+    time: "50 min",
+    serves: 4,
+    description: "Fragrant basmati rice and browned lamb, spiced with cardamom and cinnamon.",
+    img: lamb2,
+    steps: [
+      "Rinse basmati rice until water runs clear.",
+      "Sauté onions and garlic in oil until translucent.",
+      "Add lamb cubes and brown on all sides.",
+      "Stir in rice, broth, and spices (cardamom, cinnamon stick).",
+      "Cover and simmer on low for 20 minutes.",
+      "Fluff rice with a fork and serve with roasted almonds."
+    ]
+  },
+  {
+    id: 6,
+    name: "Chickpea & Spinach Curry",
+    category: "Mains",
+    diet: "Vegan",
+    time: "30 min",
+    serves: 4,
+    description: "A creamy coconut curry that goes from pantry to plate in half an hour.",
+    img: spinach,
+    steps: [
+      "Heat oil in a saucepan; sauté onions, garlic, and ginger until fragrant.",
+      "Add curry powder, turmeric, and cumin; toast spices for 1 minute.",
+      "Stir in chickpeas and coconut milk; simmer for 10 minutes.",
+      "Fold in fresh spinach and cook until wilted.",
+      "Season with salt, pepper, and a squeeze of lemon juice.",
+      "Serve over steamed rice or with warm naan."
+    ]
+  },
+  {
+    id: 7,
+    name: "Meatball Curry",
+    category: "Mains",
+    diet: "Halal",
+    time: "45 min",
+    serves: 4,
+    description: "Spiced meatballs simmered in a rich tomato-coconut curry sauce.",
+    img: meatballs,
+    steps: [
+      "Mix ground meat with spices, herbs, and an egg; form into balls.",
+      "Brown meatballs in a skillet; set aside.",
+      "Sauté onions, garlic, and ginger until fragrant.",
+      "Add curry paste, tomatoes, and coconut milk; simmer.",
+      "Return meatballs to sauce and cook for 10 minutes.",
+      "Garnish with cilantro and serve with naan or rice."
+    ]
+  },
+  {
+    id: 8,
+    name: "Vegetable Massaman Curry",
+    category: "Mains",
+    diet: "Pescatarian",
+    time: "35 min",
+    serves: 4,
+    description: "Gently spiced Thai Massaman curry loaded with tender mixed vegetables.",
+    img: thai,
+    steps: [
+      "Sauté Massaman curry paste in a drizzle of oil until aromatic.",
+      "Pour in coconut milk and stir until smooth.",
+      "Add mixed vegetables; simmer until tender.",
+      "Season with a pinch of sugar and a splash of fish sauce.",
+      "Serve over rice and garnish with fresh cilantro."
+    ]
+  },
+  {
+    id: 9,
+    name: "Mediterranean Vegan Bowl",
+    category: "Mains",
+    diet: "Vegan",
+    time: "20 min",
+    serves: 2,
+    description: "Sautéed zucchini, artichokes, olives and tomatoes over your favourite grain.",
+    img: bowl,
+    steps: [
+      "Prep all vegetables: chop zucchini, artichoke hearts, olives, and tomatoes.",
+      "Sauté zucchini and artichokes in olive oil over medium heat until lightly browned.",
+      "Add tomatoes and olives; cook until tomatoes soften.",
+      "Season with salt, pepper, and fresh herbs (basil or parsley).",
+      "Plate the sautéed vegetables over cooked pasta or grain of choice.",
+      "Drizzle with extra-virgin olive oil and serve warm."
+    ]
+  },
+  {
+    id: 10,
+    name: "Caramel Brownies",
+    category: "Desserts",
+    diet: "Vegetarian",
+    time: "40 min",
+    serves: 9,
+    description: "Fudgy dark-chocolate brownies with ribbons of caramel baked through.",
+    img: b1,
+    steps: [
+      "Melt 100g butter and 100g dark chocolate; stir in 150g sugar and 2 eggs.",
+      "Fold in 75g flour, 25g cocoa powder, and a pinch of salt.",
+      "Pour batter into the pan and drizzle 100g caramel sauce on top.",
+      "Bake for 20–25 minutes until set; cool before cutting."
+    ]
+  },
+  {
+    id: 11,
+    name: "Cookie Dough Pancakes",
+    category: "Desserts",
+    diet: "Vegetarian",
+    time: "20 min",
+    serves: 2,
+    description: "Fluffy pancakes studded with edible cookie dough and maple syrup.",
+    img: p1,
+    steps: [
+      "Whisk pancake batter according to mix instructions.",
+      "Fold in small scraps of edible cookie dough.",
+      "Heat a nonstick pan over medium and lightly grease.",
+      "Pour batter to form pancakes; cook until bubbles appear.",
+      "Flip and cook until golden on both sides.",
+      "Serve warm with maple syrup and extra cookie dough bits."
+    ]
+  },
+  {
+    id: 12,
+    name: "Lotus Biscoff Cheesecake",
+    category: "Desserts",
+    diet: "Vegetarian",
+    time: "4+ hrs",
+    serves: 8,
+    description: "A no-fuss cheesecake on a crushed Biscoff base, chilled until silky.",
+    img: c1,
+    steps: [
+      "Crush 200g Lotus biscuits and mix with 75g melted butter; press into a springform pan.",
+      "Beat 300g cream cheese with 100g sugar, 2 eggs, and 100g Biscoff spread until smooth.",
+      "Pour the filling over the crust and smooth the top.",
+      "Chill in the fridge for at least 4 hours until fully set.",
+      "Sprinkle extra biscuit crumbs on top before serving."
+    ]
+  },
+  {
+    id: 13,
+    name: "Chocolate Fudge Cake",
+    category: "Desserts",
+    diet: "Vegetarian",
+    time: "2.5 hrs",
+    serves: 8,
+    description: "A no-bake fridge cake: dark chocolate, condensed milk and a biscuit base.",
+    img: c2,
+    steps: [
+      "Combine 200g crushed biscuits with 75g melted butter and press into a lined cake tin.",
+      "Heat 200g dark chocolate and 100g condensed milk until smooth; pour over the base.",
+      "Stir in 50g chopped nuts or extras if desired for texture.",
+      "Chill for at least 2 hours until firm.",
+      "Top with chocolate shavings or ganache before serving."
+    ]
+  },
+  {
+    id: 14,
+    name: "Brownie Cookies (Brookies)",
+    category: "Desserts",
+    diet: "Vegetarian",
+    time: "30 min",
+    serves: 12,
+    description: "Half brownie, half cookie — the best of both in one bake.",
+    img: b2,
+    steps: [
+      "Scoop tablespoon-sized dollops of brownie batter onto the sheet.",
+      "Top each with a small ball of cookie dough and gently press down.",
+      "Bake for 12–15 minutes until brownies are set around the edges.",
+      "Cool on the sheet before transferring to a rack to finish cooling."
+    ]
+  },
+  {
+    id: 15,
+    name: "Lotus Filled Pancakes",
+    category: "Desserts",
+    diet: "Vegetarian",
+    time: "25 min",
+    serves: 2,
+    description: "Pancakes with a molten Biscoff centre that oozes when you cut in.",
+    img: p2,
+    steps: [
+      "Whisk pancake batter according to package instructions.",
+      "Pour a small circle of batter onto a hot, greased skillet.",
+      "Drop 1 tsp Lotus Biscoff spread into the center of the batter.",
+      "Cover with a bit more batter to seal in the filling.",
+      "Cook until bubbles form on top, then flip and cook until golden.",
+      "Serve warm, drizzled with extra Lotus spread if desired."
+    ]
+  }
+];
+
+export default recipes;

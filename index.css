@@ -1,0 +1,30 @@
+import React from "react";
+
+export default function Footer() {
+  return (
+    <footer className="bg-pine text-paper mt-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="text-center sm:text-left">
+          <p className="font-display text-xl">Reggie&rsquo;s Recipes</p>
+          <p className="text-paper/70 text-sm mt-1">
+            A portfolio project by Hamza Hussain — built with React, Tailwind CSS,
+            Cloudflare Workers and the OpenAI API.
+          </p>
+        </div>
+        <div className="flex items-center gap-4 font-mono text-sm">
+          <a
+            href="https://github.com/hamzaSH221/Reggies_Recipes_Public"
+            target="_blank"
+            rel="noreferrer"
+            className="underline underline-offset-4 hover:text-saffron"
+          >
+            View source on GitHub
+          </a>
+        </div>
+      </div>
+      <div className="border-t border-paper/10 py-4 text-center text-xs text-paper/50">
+        &copy; {new Date().getFullYear()} Hamza Hussain
+      </div>
+    </footer>
+  );
+}

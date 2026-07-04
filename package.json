@@ -1,0 +1,94 @@
+import React, { useState } from "react";
+import recipes from "../data/recipes";
+import RecipeCard from "../components/RecipeCard";
+import RecipeModal from "../components/RecipeModal";
+
+const categories = ["All", "Mains", "Desserts"];
+const diets = ["All", "Vegan", "Halal", "Pescatarian", "Vegetarian"];
+
+export default function Recipes() {
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("All");
+  const [diet, setDiet] = useState("All");
+  const [openRecipe, setOpenRecipe] = useState(null);
+
+  // A recipe is shown only if it passes all three filters
+  const filtered = recipes.filter((recipe) => {
+    const matchesSearch = recipe.name.toLowerCase().includes(search.toLowerCase());
+    const matchesCategory = category === "All" || recipe.category === category;
+    const matchesDiet = diet === "All" || recipe.diet === diet;
+    return matchesSearch && matchesCategory && matchesDiet;
+  });
+
+  // Small helper to render a row of filter chips
+  const chipRow = (options, selected, setSelected, label) => (
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="font-mono text-xs uppercase tracking-widest text-ink/50 mr-1">{label}</span>
+      {options.map((option) => (
+        <button
+          key={option}
+          onClick={() => setSelected(option)}
+          className={`px-3.5 py-1.5 rounded-full text-sm font-semibold transition-colors
+                      focus:outline-none focus:ring-2 focus:ring-basil ${
+                        selected === option
+                          ? "bg-pine text-paper"
+                          : "bg-white border border-pine/15 text-ink/70 hover:bg-leaf"
+                      }`}
+        >
+          {option}
+        </button>
+      ))}
+    </div>
+  );
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <h1 className="font-display text-4xl text-pine">The recipe library</h1>
+      <p className="text-ink/70 mt-2 max-w-xl">
+        Fifteen mains and desserts, each with a full step-by-step method. Search or
+        filter to find your next meal.
+      </p>
+
+      {/* Search + filters */}
+      <div className="mt-8 space-y-4">
+        <input
+          type="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search recipes… e.g. curry"
+          className="w-full sm:max-w-md px-4 py-3 rounded-xl border border-pine/15 bg-white
+                     placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-basil"
+        />
+        {chipRow(categories, category, setCategory, "Type")}
+        {chipRow(diets, diet, setDiet, "Diet")}
+      </div>
+
+      {/* Results */}
+      {filtered.length > 0 ? (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-10">
+          {filtered.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} onOpen={setOpenRecipe} />
+          ))}
+        </div>
+      ) : (
+        // Empty state: tell the user what to do next
+        <div className="mt-16 text-center">
+          <p className="font-display text-xl text-pine">No recipes match those filters.</p>
+          <button
+            onClick={() => {
+              setSearch("");
+              setCategory("All");
+              setDiet("All");
+            }}
+            className="mt-4 px-5 py-2.5 bg-leaf text-pine font-semibold rounded-full hover:bg-saffron/20
+                       focus:outline-none focus:ring-2 focus:ring-basil"
+          >
+            Clear all filters
+          </button>
+        </div>
+      )}
+
+      <RecipeModal recipe={openRecipe} onClose={() => setOpenRecipe(null)} />
+    </div>
+  );
+}
